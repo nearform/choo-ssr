@@ -44,7 +44,8 @@ async function routes (fastify, opts) {
       await runner(post, html, state, reply) // plugin post-render phase
       return html
     } catch (e) {
-      console.log(e)
+      reply.code(500)
+      return e
     }
   })
 }

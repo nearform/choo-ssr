@@ -1,4 +1,4 @@
-var h = require('choo/html')
+var h = require('choo-async/html')
 var raw = require('choo/html/raw')
 var common = require('./common')
 

@@ -1,4 +1,4 @@
-var h = require('choo/html')
+var h = require('choo-async/html')
 
 function store () {
   return function ssr (state, emitter, app) {

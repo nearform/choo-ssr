@@ -25,7 +25,8 @@
     "url": "https://github.com/nearform/choo-ssr/issues"
   },
   "peerDependencies": {
-    "choo": "^6.7.0"
+    "choo-async": "^0.1.0",
+    "fastify": "^1.0.0"
   },
   "devDependencies": {
     "standard": "^11.0.1"
