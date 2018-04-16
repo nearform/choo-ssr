@@ -1,3 +1,6 @@
+const from2 = require('from2-string')
+const combine = require('stream-combiner')
+
 function runner (functions, ...args) {
   return new Promise((resolve, reject) => {
     var i = 0
@@ -30,7 +33,7 @@ async function routes (fastify, opts) {
     return plugin()
   })
   const pre = plugins.map(plugin => plugin.pre)
-  const post = plugins.map(plugin => plugin.post)
+  const posts = plugins.map(plugin => plugin.post)
 
   fastify.get('*', async (request, reply) => {
     const state = {}
@@ -40,9 +43,9 @@ async function routes (fastify, opts) {
       await runner(pre, state) // plugin pre-render phase
       const app = opts.app()
       const html = await app.toString(location, state)
+      const streams = await Promise.all(posts.map(post => post(state, reply)))
       reply.type('text/html; charset=utf-8')
-      await runner(post, html, state, reply) // plugin post-render phase
-      return html
+      return combine(from2(html), ...streams)
     } catch (e) {
       reply.code(500)
       return e
