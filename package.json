@@ -1,6 +1,6 @@
 {
   "name": "choo-ssr",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Choo plugin for SSR with Fastify",
   "homepage": "https://github.com/nearform/choo-ssr#readme",
   "author": "Diogo Cunha - @diffcunha",
