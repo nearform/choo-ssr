@@ -43,10 +43,11 @@ async function routes (fastify, opts) {
       await runner(pre, state) // plugin pre-render phase
       const app = opts.app()
       const html = await app.toString(location, state)
-      const streams = await Promise.all(posts.map(post => post(state, reply)))
+      const streams = await Promise.all(posts.map(post => post(state, request, reply))) // plugin post-render phase
       reply.type('text/html; charset=utf-8')
       return combine(from2(html), ...streams)
     } catch (e) {
+      request.log.error('choo-ssr :: someting went wrong', e)
       reply.code(500)
       return e
     }
